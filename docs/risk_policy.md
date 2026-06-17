@@ -1,0 +1,2 @@
+# Risk Policy
+Hard limits: max 5% capital per strategy, 0.25% risk per trade, 1% daily loss, 2 concurrent positions, 3% max position size, 5 bps max spread, 5 consecutive losses. Kill switch states: ACTIVE, PAUSED, CLOSED, EMERGENCY. Circuit breakers trigger on consecutive losses, slippage anomalies, and stale data. Prohibited: leverage, LLM-generated live orders, withdrawal-enabled API keys, and bypassing risk checks.
