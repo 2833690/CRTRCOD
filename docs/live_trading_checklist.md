@@ -1,0 +1,11 @@
+# Live Trading Checklist
+- [ ] Exchange API key has trade-only permissions and withdrawals disabled.
+- [ ] Strategy has passed reproducible backtests.
+- [ ] Out-of-sample validation is documented.
+- [ ] Walk-forward validation is reviewed.
+- [ ] Paper trading ran successfully.
+- [ ] Fees and slippage are included.
+- [ ] Kill switch verified via `GET /v1/risk/status`.
+- [ ] Telegram alert test sent.
+- [ ] Operator approval logged via `POST /v1/strategies/{strategy_id}/approve`.
+- [ ] Live enablement checked via `POST /v1/strategies/{strategy_id}/enable-live`.
