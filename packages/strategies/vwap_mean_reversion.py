@@ -9,6 +9,14 @@ from .registry import register_strategy
 
 @register_strategy
 class VWAPMeanReversion(BaseStrategy):
+    """VWAP mean reversion стратегия для v2 scaffold.
+
+    Логика: искать отклонение цены от VWAP, подтверждать его RSI,
+    исключать breakout-свечи через ATR и требовать достаточную ликвидность.
+    Все индикаторы приходят из `IndicatorEngine`, где значения сдвигаются
+    на один бар для защиты от lookahead bias.
+    """
+
     strategy_id = "vwap_mean_reversion_v1"
     version = "1.0.0"
     timeframe = "5m"
@@ -61,6 +69,12 @@ class VWAPMeanReversion(BaseStrategy):
         )
 
     def confirm_entry(self, row: dict, market_state: dict) -> bool:
+        """Последний live-фильтр перед отправкой ордера на биржу.
+
+        Даже если исторический сигнал есть, вход запрещается при широком
+        spread или если ожидаемая прибыль не покрывает комиссии, slippage
+        и safety buffer.
+        """
         return (
             row.get("spread_bps", 0) <= self.max_spread_bps
             and market_state.get("expected_profit_pct", 1)

@@ -16,3 +16,8 @@ ignore = ["E501", "UP042"]
 python_version = "3.12"
 ignore_missing_imports = true
 check_untyped_defs = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"

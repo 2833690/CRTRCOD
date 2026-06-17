@@ -21,6 +21,14 @@ class OrderRequest:
 
 
 class RiskEngine:
+    """Главный предохранитель CRTRCOD.
+
+    Любой paper/live ордер обязан пройти этот класс до исполнения.
+    Проверки идут строго fail-fast: как только найдено нарушение, ордер
+    получает REJECT или REDUCE, а причина записывается в audit log.
+    Такой порядок проще расследовать оператору и безопаснее для live режима.
+    """
+
     def __init__(self, limits: RiskLimits, kill_switch: KillSwitch, db_session=None):
         self.limits = limits
         self.kill_switch = kill_switch
@@ -42,6 +50,12 @@ class RiskEngine:
             )
 
     def validate_order(self, order: OrderRequest) -> tuple[RiskDecision, str]:
+        """Проверить ордер и вернуть решение risk layer.
+
+        Returns:
+            `(RiskDecision, reason_code)`, где reason_code стабилен для
+            алертов, dashboard и автоматических тестов.
+        """
         start = perf_counter()
         checks = []
 

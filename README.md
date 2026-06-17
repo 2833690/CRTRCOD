@@ -13,8 +13,18 @@ docker compose -f docker/docker-compose.yml up -d
 uv run pytest tests/ -v
 ```
 
+
+## Русское руководство
+Подробная инструкция по архитектуре, запуску, risk engine, kill switch и live trading checklist доступна в [docs/manual_ru.md](docs/manual_ru.md).
+
+## v2 Stability
+Stability checklist and operational validation steps are documented in [docs/v2_stability_plan.md](docs/v2_stability_plan.md).
+
 ## Architecture
 The project is split into `packages/` for reusable domain modules and `apps/` for API, worker, and dashboard entrypoints. PostgreSQL stores operational records, Redis backs queues and kill-switch state, DuckDB/Parquet power research, and MLflow tracks experiments.
+
+## Make commands
+Common operator shortcuts are available in `Makefile`: `make install`, `make lint`, `make type`, `make test`, `make api`, `make worker`, `make dashboard`, `make docker-up`, and `make docker-down`.
 
 ## Running Tests
 ```bash
