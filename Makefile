@@ -1,4 +1,7 @@
-.PHONY: install lint type test compile api worker dashboard docker-up docker-down
+.PHONY: doctor install lint type test compile api worker dashboard docker-up docker-down
+
+doctor:
+	python scripts/doctor.py
 
 install:
 	uv sync
