@@ -1,0 +1,25 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: crtrcod, POSTGRES_PASSWORD: crtrcod, POSTGRES_DB: crtrcod }
+        ports: ["5432:5432"]
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync --all-extras
+      - run: uv run ruff check .
+      - run: uv run mypy packages/ apps/ --ignore-missing-imports
+      - run: uv run pytest tests/ --cov=packages --cov-report=term-missing
+    env:
+      DATABASE_URL: postgresql://crtrcod:crtrcod@localhost:5432/crtrcod
+      REDIS_URL: redis://localhost:6379/0
+      EXCHANGE_API_KEY: test_key
+      EXCHANGE_SECRET: test_secret
