@@ -5,6 +5,9 @@ class ReportGenerator:
     def generate_html(self, metrics: dict, trades, equity_curve) -> str:
         return "<html><body><h1>CRTRCOD Backtest</h1></body></html>"
 
+    def to_markdown(self, metrics: dict) -> str:
+        return self.generate_markdown(metrics)
+
     def generate_markdown(self, metrics: dict) -> str:
         rows = ["| Metric | Value |", "|---|---|"]
         rows.extend(f"| {key} | {value} |" for key, value in metrics.items())

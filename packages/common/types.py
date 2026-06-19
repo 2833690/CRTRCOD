@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
+from enum import Enum, StrEnum
 from typing import TypedDict
 
 
-class Exchange(str, Enum):
+class Exchange(StrEnum):
     BINANCE = "binance"
     KRAKEN = "kraken"
     OKX = "okx"
 
 
-class Timeframe(str, Enum):
+class Timeframe(StrEnum):
     M1 = "1m"
     M5 = "5m"
     M15 = "15m"
@@ -19,7 +19,7 @@ class Timeframe(str, Enum):
     D1 = "1d"
 
 
-class StrategyStatus(str, Enum):
+class StrategyStatus(StrEnum):
     RESEARCH = "research"
     VALIDATED = "validated"
     PAPER = "paper"
@@ -27,12 +27,12 @@ class StrategyStatus(str, Enum):
     DISABLED = "disabled"
 
 
-class OrderSide(str, Enum):
+class OrderSide(StrEnum):
     BUY = "buy"
     SELL = "sell"
 
 
-class RiskDecision(str, Enum):
+class RiskDecision(StrEnum):
     ALLOW = "ALLOW"
     REJECT = "REJECT"
     REDUCE = "REDUCE"
@@ -86,3 +86,17 @@ class OHLCVDict(TypedDict):
     timeframe: str
     exchange: str
     ingest_ts: datetime
+
+@dataclass(frozen=True)
+class Trade:
+    entry_ts: datetime
+    exit_ts: datetime
+    symbol: str
+    side: OrderSide
+    quantity: float
+    entry_price: float
+    exit_price: float
+    gross_pnl: float
+    fees: float
+    slippage: float
+    net_pnl: float

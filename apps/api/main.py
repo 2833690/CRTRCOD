@@ -1,16 +1,16 @@
 import time
 
 from fastapi import FastAPI, Request
+from packages.common.config import get_settings
+from packages.common.logging import get_logger
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
-from apps.api.routers import risk, strategies
-from packages.common.config import get_settings
-from packages.common.logging import get_logger
+from apps.api.routers import backtests, data, paper, risk, strategies
 
 logger = get_logger(__name__)
 limiter = Limiter(key_func=get_remote_address)
-app = FastAPI(title="CRTRCOD API")
+app = FastAPI(title="CRTRCOD API", version="0.1.0")
 app.state.limiter = limiter
 
 
@@ -43,3 +43,7 @@ def health():
 
 app.include_router(risk.router, prefix="/v1/risk", tags=["risk"])
 app.include_router(strategies.router, prefix="/v1/strategies", tags=["strategies"])
+
+app.include_router(data.router, prefix="/v1/data", tags=["data"])
+app.include_router(backtests.router, prefix="/v1/backtests", tags=["backtests"])
+app.include_router(paper.router, prefix="/v1/paper", tags=["paper"])

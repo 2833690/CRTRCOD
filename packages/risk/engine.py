@@ -57,7 +57,7 @@ class RiskEngine:
             алертов, dashboard и автоматических тестов.
         """
         start = perf_counter()
-        checks = []
+        checks: list[str] = []
 
         def finish(dec, reason):
             self._audit(order, checks, dec, reason, start)

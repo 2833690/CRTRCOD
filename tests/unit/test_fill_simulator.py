@@ -1,5 +1,4 @@
 import pytest
-
 from packages.common.types import OrderSide
 from packages.execution.fill_simulator import FillSimulator
 

@@ -1,0 +1,4 @@
+environment: development
+exchange: binance
+default_symbol: BTC/USDT
+default_timeframe: 5m
