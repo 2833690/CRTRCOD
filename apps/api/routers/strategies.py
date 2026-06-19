@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-
 from packages.strategies.registry import StrategyRegistry
 
 router = APIRouter()

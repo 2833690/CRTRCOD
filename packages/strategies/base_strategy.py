@@ -26,3 +26,9 @@ class BaseStrategy(ABC):
 
     def should_disable(self, stats: dict) -> tuple[bool, str]:
         return False, ""
+
+    def run(self, df: pl.DataFrame) -> pl.DataFrame:
+        """Populate indicators and entry/exit signals deterministically."""
+        out = self.populate_indicators(df)
+        out = self.populate_entry_signal(out)
+        return self.populate_exit_signal(out)

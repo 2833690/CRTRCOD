@@ -1,5 +1,4 @@
 import pytest
-
 from packages.backtesting.cost_model import CostModel
 
 

@@ -9,7 +9,7 @@ class CCXTClient:
         self.exchange = cls({"apiKey": api_key, "secret": secret, "enableRateLimit": True})
 
     def verify_permissions(self) -> dict:
-        perms = getattr(self.exchange, "fetch_permissions", lambda: {})()
+        perms: dict[str, object] = getattr(self.exchange, "fetch_permissions", lambda: {})()
         if perms.get("withdraw") or perms.get("withdrawal"):
             raise PermissionError("Withdrawal permission must be disabled")
         return perms

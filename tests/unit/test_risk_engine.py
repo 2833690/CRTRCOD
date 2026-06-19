@@ -2,7 +2,6 @@ from datetime import UTC, datetime
 from types import SimpleNamespace
 
 import pytest
-
 from packages.common.types import KillSwitchState, OrderSide, RiskDecision
 from packages.risk.engine import OrderRequest, RiskEngine
 from packages.risk.kill_switch import KillSwitch
@@ -11,15 +10,9 @@ from packages.risk.limits import RiskLimits
 
 class DB(SimpleNamespace):
     def __init__(self, **kw):
-        super().__init__(
-            audit_log=[],
-            total_capital=10000,
-            daily_pnl=0,
-            open_positions=0,
-            spread_bps=1,
-            stale_data=False,
-            **kw,
-        )
+        defaults = dict(audit_log=[], total_capital=10000, daily_pnl=0, open_positions=0, spread_bps=1, stale_data=False)
+        defaults.update(kw)
+        super().__init__(**defaults)
 
 
 @pytest.fixture

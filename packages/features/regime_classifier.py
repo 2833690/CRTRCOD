@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import StrEnum
 
 import polars as pl
 
 
-class MarketRegime(str, Enum):
+class MarketRegime(StrEnum):
     BULL_TREND = "bull_trend"
     BEAR_TREND = "bear_trend"
     HIGH_VOL_RANGE = "high_vol_range"
